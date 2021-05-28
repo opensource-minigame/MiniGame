@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>minigame</title>
+    <link href="reset.css" rel="stylesheet" type="text/css">
+    <link href="style1.css" rel="stylesheet" type="text/css">
+    <!--link태그로 사용할 css파일 링크
+    2. href 참조할 css파일 경로 지정
+    3. type속성 link태그로 연결되는 파일이 어떤 것인지 알려줌
+    4. rel속성 html 파일과 css파일과의 관계를 설명-->
+
+</head>
+<body>
+    <h1 id="main_name">MINI GAME</h1>
+    <div class="container"> 
+        <div class="game tetris">
+            <h1 class="name">Tetris</h1>
+            <img class="imgs" src="img/테트리스.png" >
+            <button class="start"><a href="tetris.html" target="_blank">go!</a></button>
+            
+        </div>
+        
+        <div class="game mineweeper">
+            <h1 class="name">Mineweeper</h1>
+            <img class="imgs" src="img/지뢰찾기.png" >
+            <div class="level">
+                <button class="start" ><a href="mineweeper1.html" target="_blank">초급</a></button>
+                <button class="start" ><a href="mineweeper2.html" target="_blank">중급</a></button>
+                <button class="start" ><a href="mineweeper3.html" target="_blank">고급</a></button>
+            </div>
+            
+        </div>
+        
+        
+    </div>
+    
+</body>
+</html>

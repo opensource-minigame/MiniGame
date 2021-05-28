@@ -1,0 +1,51 @@
+body {
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    height: 80%;
+    align-items: center;
+}
+
+.game {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 50%;
+}
+
+.imgs {
+    width: 300px;
+    height: 300px;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+#main_name {
+    display: block;
+    font-size: 30px;
+    padding-top: 10px;
+    padding-bottom: 30px;
+    padding-left: 10px;
+}
+
+.level {
+    display: flex;
+    flex-direction: row;
+}
+
+.start {
+    margin: 30px;
+    padding: 2px 10px;
+    box-shadow:  2px 5px 10px rgb(116, 116, 116);
+}
+
+.start:hover{
+    background-color:rgba(114, 114, 114, 0.111)
+}
+.start a{
+    text-decoration:none;
+}
