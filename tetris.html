@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tetris</title>
+    <link href="reset.css" rel="stylesheet" type="text/css">
+    <!--웹브라우저마다 초기 css스타일 다르기 때문에 초기화-->
+    <link href="tetris.css" rel="stylesheet" type="text/css">
+    <!--css연결-->
+</head>
+
+<body>
+    <div class="modal">
+        <!--modal창은 게임시작과 종료할 때 나오는 팝업창을 의미-->
+        <div class="modal_content"><button class="start">시작</button></div>
+        <!--시작 누르면 시작할 수 있게-->
+    </div>
+   
+    <div class="container">
+        <!--본격적으로 게임이 시작됨-->
+        <div class="score_line">
+            <!--점수-->
+            lines: <div class="line"></div>
+            score: <div id="score">0</div>
+        </div>
+        <div class="box">
+            <div class="next_item">
+                 <!--다음 도형이 나타나는 부분-->
+                <table id="next_table">
+                    <tr>
+                        <td> </td> <td> </td> <td> </td> <td> </td>
+                    </tr>
+                    <tr>
+                        <td> </td><td> </td><td> </td><td> </td>
+                    </tr>
+                    <tr>
+                        <td> </td><td> </td><td> </td><td> </td>
+                    </tr>
+                    <tr>
+                        <td> </td><td> </td><td> </td><td> </td>
+                    </tr>
+                </table>
+               
+            </div>
+            <table id="playbox">                       <!-- table 로 수정-->
+                <!--테트리스 게임 부분 -->
+            </table>
+           
+            <button id="stop">중단</button>
+            <button id="start">재개</button>
+        
+        </div>
+    </div>
+    <script src="tetris.js"></script>
+</body>
+
+</html>
