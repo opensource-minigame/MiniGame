@@ -4,6 +4,9 @@ var currentBlock;
 var nextBlock;
 var currentTopLeft=[0,3]; //블록 나오는위치
 const modal = document.querySelector('.modal');
+let overorstart = 0; //0이면 게임 오버 ,1이면 게임중
+const box = document.querySelector('.box');
+
 
 
   
@@ -277,6 +280,9 @@ function generate() { // 테트리스 블록 생성
       }
     });
   });
+
+
+
   
   currentBlock.shape[0].slice(1).forEach((col, i) => { // 블록 데이터 생성
    //console.log(currentBlock.shape[0], currentBlock.shape[0].slice(1), col);
@@ -293,12 +299,17 @@ function generate() { // 테트리스 블록 생성
     //게임 끝이라 색을 입힐 필요는없지만 테트리스 보면 그림그려지고 게임종료됨
     draw();
     //이부분은 시작창처럼 띄우는거로 바꿔야함
-    alert('game over');
+    modal.classList.remove('hidden');
+    //tetris.remove();
+    //document.querySelectorAll('tr').remove();
+    overorstart = 1;
+    document.getElementById('score').textContent = String('0');//점수  설정
   } else {
     //이부분 어차피 실행할거 그냥 맨아래 에 빼던가 조건 다시입혀서 게임자체를 아예 끝내야함 다른오류 생김 ; 수정필요
     draw();
   }
 }
+
 
 function checkRows() { // 한 줄 다 찼는지 검사
   const fullRows = []; //가득찬줄이 몇번째 줄인지 저장해둘 배열
@@ -371,13 +382,33 @@ let int = setInterval(tick, 2000); //2초마다 움직이는 블럭 1칸씩내�
 
 modal.addEventListener('click',function(){
   modal.classList.add('hidden');
+  /*if(overorstart === 1){
+    let tetris = document.createElement('table');
+    tetris.id = 'tetris';
+    temp.appendChild(tetris);
+    overorstart = 0;
+  }*/
   init();
   generate();
+  document.getElementById('stop').addEventListener('click', function() {
+    clearInterval(int);
+  });
+  
+  document.getElementById('restart').addEventListener('click', function() {
+    if (int) {
+      clearInterval(int);
+    }
+    int = setInterval(tick, 2000);
+  });
+
+
 });
+
 document.getElementById('stop').addEventListener('click', function() {
   clearInterval(int);
 });
-document.getElementById('start').addEventListener('click', function() {
+
+document.getElementById('restart').addEventListener('click', function() {
   if (int) {
     clearInterval(int);
   }

@@ -10,49 +10,70 @@
     <!--웹브라우저마다 초기 css스타일 다르기 때문에 초기화-->
     <link href="tetris.css" rel="stylesheet" type="text/css">
     <!--css연결-->
+    <link href="https://fonts.googleapis.com/css2?family=Pattaya&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <div class="modal">
         <!--modal창은 게임시작과 종료할 때 나오는 팝업창을 의미-->
-        <div class="modal_content"><button class="start">시작</button></div>
+        <div class="modal_content"><button class="start">START</button></div>
         <!--시작 누르면 시작할 수 있게-->
     </div>
    
     <div class="container">
         <!--본격적으로 게임이 시작됨-->
-        <div class="score_line">
-            <!--점수-->
-            lines: <div class="line"></div>
-            score: <div id="score">0</div>
-        </div>
         <div class="box">
-            <div class="next_item">
-                 <!--다음 도형이 나타나는 부분-->
-                <table id="next_table">
-                    <tr>
-                        <td> </td> <td> </td> <td> </td> <td> </td>
-                    </tr>
-                    <tr>
-                        <td> </td><td> </td><td> </td><td> </td>
-                    </tr>
-                    <tr>
-                        <td> </td><td> </td><td> </td><td> </td>
-                    </tr>
-                    <tr>
-                        <td> </td><td> </td><td> </td><td> </td>
-                    </tr>
+            <span class="game_name">Tetris</span>
+            <div class="temp">
+                <table id="playbox">                       <!-- table 로 수정-->
+                    <!--테트리스 게임 부분 -->
                 </table>
-               
             </div>
-            <table id="playbox">                       <!-- table 로 수정-->
-                <!--테트리스 게임 부분 -->
-            </table>
-           
-            <button id="stop">중단</button>
-            <button id="start">재개</button>
-        
+            
+
+            <div class="non_playbox">
+                <div class="level_box">
+                    <div class="discription_name">LEVEL</div>
+                    <div id="level">0</div>
+                </div>
+                <div class="score_box">
+                    <div class="discription_name">SCORE</div>
+                    <div id="score">0</div>
+                </div>
+                
+                <div class="next_item">
+                    <div class="discription_name">NEXT</div>
+                    <table id="next_table"><!--다음 도형이 나타나는 부분-->
+                        <tr>
+                            <td> </td> <td> </td> <td> </td> <td> </td>
+                        </tr>
+                        <tr>
+                            <td> </td><td> </td><td> </td><td> </td>
+                        </tr>
+                        <tr>
+                            <td> </td><td> </td><td> </td><td> </td>
+                        </tr>
+                        <tr>
+                            <td> </td><td> </td><td> </td><td> </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="help_box">
+                    <div class="discription_name">HELP</div>
+                    <div class="moving">
+                        <div>방향키 &larr; &darr; &rarr;</div>
+                        <div>도형변환 &uarr;</div>
+                        <div>바닥으로 space</div>
+                    </div>
+
+                </div>
+                <div class="stop_keep">
+                    <button id="stop">중단</button>
+                    <button id="restart">재개</button>
+                </div>
+            </div>
         </div>
+        
     </div>
     <script src="tetris.js"></script>
 </body>
