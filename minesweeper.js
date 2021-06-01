@@ -19,7 +19,7 @@ let stopwatch = setInterval(() => { //시간초 세주기
     }
 }, 1000);
 
-var vic =0;
+let vic =0;
 
 let rect = [,];
 const bomb = 'img/bomb.png';
@@ -68,6 +68,7 @@ for(let i = 0; i < 8 ; i++){
 for(let i = 0; i < 8 ; i++){ 
     for(let j = 0; j < 10; j++){
         if(rect[i][j].className==="BB"){
+
             getCountNearby(i, j); 
         }
     }
@@ -85,20 +86,20 @@ function getCountNearby(i, j){
     }
 }
 
-
+/////////////////////   FLAG SETUP & VIC +1    /////////////////////////////
 playbox.addEventListener('contextmenu',function(event){ 
     event.preventDefault();
     var target = event.target;
-    console.log("right-click")
     var isFlags = target.getAttribute('isflag')
     if(target.classList.contains('check')){
-        target.removeEventListener('contextmenu',function(e){console.log('l')})
-        console.log("if")
+        target.removeEventListener('contextmenu',(e)=>{})
     }
     else{
         if(isFlags==='false'){
             target.setAttribute('isflag', true);
-            console.log('clicks')
+            if(target.classList.contains('BB')){
+                vic += 1
+            }
             FlagInOut(target);
         }
         else{
@@ -108,11 +109,14 @@ playbox.addEventListener('contextmenu',function(event){
             simg.style.visibility = 'hidden'
             let img = document.createElement('img');
             target.parentNode.appendChild(img);
+            if(target.parentNode.classList.contains('BB')){
+                vic -= 1
+            }
             cnt+=3;
         }
     }
 });
-
+/////////////////////////////////////////////////////////////////////////
 function FlagInOut(target){
 
     var simg = target.querySelector('img');
@@ -120,9 +124,9 @@ function FlagInOut(target){
     if(isFlags==='true'){
         simg.src = flag;
         simg.style.visibility = 'visible'
+
     }
 }
-
 playbox.addEventListener('click',(event)=>{
     let target = event.target;
     if(target.parentNode.getAttribute('isflag')==='true'){
@@ -149,7 +153,13 @@ playbox.addEventListener('click',(event)=>{
             target.style.backgroundColor = 'yellow'
         }
     }
+    findCheck();
 })
+
+function findCheck(){
+    let chk = document.getElementsByClassName('check').length
+    if(chk === 70) WIN();
+}
 
 const modal = document.querySelector('.modal');
 
@@ -196,13 +206,16 @@ function checkNeighbor(i,j){
             }
         }
     }
+
 }
-function victC(){
-    for(let i = 0; i < 8 ; i++){ 
-        let ul = document.createElement('ul');
-        for(let j = 0; j < 10; j++){
-        }
-    }
-    
+
+
+//////////////////
+
+//////////////////
+function WIN(){
+    console.log('WIN')
+
 }
+
 //////////////////////////////////////////////////////클릭시스템.
