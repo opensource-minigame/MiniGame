@@ -68,7 +68,9 @@ for(let i = 0; i < 8 ; i++){
 for(let i = 0; i < 8 ; i++){ 
     for(let j = 0; j < 10; j++){
         if(rect[i][j].className==="BB"){
-
+            let selectimg = rect[i][j].querySelector('img');    
+            selectimg.src = bomb;
+            selectimg.style.visibility = 'visible';
             getCountNearby(i, j); 
         }
     }
@@ -214,8 +216,7 @@ function checkNeighbor(i,j){
 
 //////////////////
 function WIN(){
-    console.log('WIN')
-
+    window.open('inputtext.html','inputtext','width = 300px, height 300px, left = 100, top = 50')
 }
 
 //////////////////////////////////////////////////////클릭시스템.
