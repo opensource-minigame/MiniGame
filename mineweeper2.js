@@ -19,6 +19,7 @@ let stopwatch = setInterval(() => { //시간초 세주기
     }
 }, 1000);
 
+let vic =0;
 
 let rect = [,];
 const bomb = 'img/bomb.png';
@@ -67,6 +68,9 @@ for(let i = 0; i < 14 ; i++){
 for(let i = 0; i < 14 ; i++){ 
     for(let j = 0; j < 18; j++){
         if(rect[i][j].className==="BB"){
+           /* let selectimg = rect[i][j].querySelector('img');    
+            selectimg.src = bomb;
+            selectimg.style.visibility = 'visible';*/
             getCountNearby(i, j); 
         }
     }
@@ -84,20 +88,20 @@ function getCountNearby(i, j){
     }
 }
 
-
+/////////////////////   FLAG SETUP & VIC +1    /////////////////////////////
 playbox.addEventListener('contextmenu',function(event){ 
     event.preventDefault();
     var target = event.target;
-    console.log("right-click")
     var isFlags = target.getAttribute('isflag')
     if(target.classList.contains('check')){
-        target.removeEventListener('contextmenu',function(e){console.log('l')})
-        console.log("if")
+        target.removeEventListener('contextmenu',(e)=>{})
     }
     else{
         if(isFlags==='false'){
             target.setAttribute('isflag', true);
-            console.log('clicks')
+            if(target.classList.contains('BB')){
+                vic += 1
+            }
             FlagInOut(target);
         }
         else{
@@ -107,11 +111,14 @@ playbox.addEventListener('contextmenu',function(event){
             simg.style.visibility = 'hidden'
             let img = document.createElement('img');
             target.parentNode.appendChild(img);
+            if(target.parentNode.classList.contains('BB')){
+                vic -= 1
+            }
             cnt+=2;
         }
     }
 });
-
+/////////////////////////////////////////////////////////////////////////
 function FlagInOut(target){
 
     var simg = target.querySelector('img');
@@ -119,9 +126,9 @@ function FlagInOut(target){
     if(isFlags==='true'){
         simg.src = flag;
         simg.style.visibility = 'visible'
+
     }
 }
-
 playbox.addEventListener('click',(event)=>{
     let target = event.target;
     if(target.parentNode.getAttribute('isflag')==='true'){
@@ -132,16 +139,33 @@ playbox.addEventListener('click',(event)=>{
         let col = target.getAttribute('id')%18;
         click(rect[row][col],row,col)
         if(rect[row][col].className=='BB check'){ 
-            isOver = true;                             
-            rect[row][col].style.backgroundColor='white';             
-            let target = event.target;                         
-            let selectimg = target.querySelector('img');    
-            selectimg.src = bomb;
-            selectimg.style.visibility = 'visible';
+            isOver = true;
+            let target = event.target;
+
+            for(let i = 0; i < 14 ; i++){ 
+                for(let j = 0; j < 18; j++){
+                    if(rect[i][j].classList.contains('BB')){
+                        rect[row][col].style.backgroundColor='white';
+                        let selectimg = rect[i][j].querySelector('img');    
+                        selectimg.src = bomb;
+                        selectimg.style.visibility = 'visible';
+                    }
+                }
+            }
+            target.style.backgroundColor = 'yellow'
         }
     }
+    findCheck();
 })
 
+function findCheck(){
+    let chk = document.getElementsByClassName('check').length
+    if(chk === 212) {
+        isOver = true;
+        WIN();
+    }
+
+}
 
 const modal = document.querySelector('.modal');
 
@@ -172,7 +196,7 @@ function click(li,i,j){
 function checkNeighbor(i,j){
     for(let a =i-1; a<=i+1 ; a++){
         for(let b = j-1; b<=j+1; b++){
-            try{
+            try{    
                 if(rect[a][b].classList.contains("NBB")&&rect[i][j].getAttribute("value")!=0){
                     click(rect[i][j],i,j)
                 }
@@ -188,6 +212,16 @@ function checkNeighbor(i,j){
             }
         }
     }
+
 }
+
+
+//////////////////
+
+//////////////////
+function WIN(){
+    window.open('inputtext.html','inputtext','width = 500px, height 300px, left = 100, top = 50')
+}
+
 
 //////////////////////////////////////////////////////클릭시스템.
