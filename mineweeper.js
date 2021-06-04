@@ -23,7 +23,7 @@ let vic =0;
 
 let rect = [,];
 const bomb = 'img/bomb.png';
-const flag = 'img/one.png';
+const flag = 'img/flag.png';
 let isOver = false;
 let isFlag = false;
 setBomb = Array(10).fill('BB');   //폭탄 해당 id에 넣어버리기 위한 배열
@@ -107,11 +107,27 @@ playbox.addEventListener('contextmenu',function(event){
         }
         else{
             target.parentNode.setAttribute('isflag',false)
-            let simg = target.parentNode.querySelector('img')
+            let simg = target.parentNode.querySelector('img');
+            console.log('simg',simg);
+
+            setTimeout(()=> {
+                const clone = simg.cloneNode(true);
+                console.log('clone',clone);
+                target.parentNode.appendChild(clone);
+                clone.src = 'img/flag.png';
+                clone.style = 'position:absolute';
+                clone.style.visibility = 'visible';
+                clone.classList.add('active');
+                clone.addEventListener('animationend',function(){
+                clone.remove();
+                });
+              },100);
+
             simg.src=''
             simg.style.visibility = 'hidden'
-            let img = document.createElement('img');
-            target.parentNode.appendChild(img);
+            //let img = document.createElement('img');
+            //target.parentNode.appendChild(img);
+            
             if(target.parentNode.classList.contains('BB')){
                 vic -= 1
             }
@@ -122,12 +138,14 @@ playbox.addEventListener('contextmenu',function(event){
 /////////////////////////////////////////////////////////////////////////
 function FlagInOut(target){
     var simg = target.querySelector('img');
-    var isFlags = target.getAttribute('isflag')
+    var isFlags = target.getAttribute('isflag');
     if(isFlags==='true'){
         simg.src = flag;
-        simg.style.visibility = 'visible'
+        simg.style.visibility = 'visible';
     }
 }
+
+
 playbox.addEventListener('click',(event)=>{
     let target = event.target;
     console.log(target.id)

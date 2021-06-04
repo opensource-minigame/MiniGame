@@ -4,10 +4,13 @@ var currentBlock;
 var nextBlock;
 var currentTopLeft=[0,3]; //블록 나오는위치
 const modal = document.querySelector('.modal');
+const modal_content = document.querySelector('.modal_content');
 let overorstart = 0; //0이면 게임 오버 ,1이면 게임중
 const box = document.querySelector('.box');
-
-
+var stopflag =false;
+var gamespeed=2000;
+let isGameOver = false; //게임 끝 여부 
+let gamestart = false;
 
   
 var blocks = [
@@ -255,6 +258,7 @@ function drawNext() { // 다음 블록 그리는 함수
     });
   })
 }
+
 //수정필요
 function generate() { // 테트리스 블록 생성
   if (!currentBlock) {
@@ -269,7 +273,7 @@ function generate() { // 테트리스 블록 생성
   //console.log(currentBlock);
   drawNext();// 다음블록을 화면에 표시하는함수 실행
   currentTopLeft = [-1, 3]; //처음 시작점 -1,3 인건 블럭 배열 보면 맨위가 비어잇는데 시작은 맨위에서 되야하므로 -1에 서부터 시작
-  let isGameOver = false; //게임 끝 여부 
+  //let isGameOver = false; //게임 끝 여부 
 
   //블럭 배열속 shap 는 블럭 모양을 나타내는 배열이고 
   //이때 0번째인덱스에는 초기 블럭 모양이 들어잇는데 이걸 1부터 끝까지 slice하는건 맨위 000이 저장된 부분을 제거한다는것이다
@@ -292,17 +296,19 @@ function generate() { // 테트리스 블록 생성
       }
     });
   });
+  
   // console.log('generate', JSON.parse(JSON.stringify(currentBlock)));
+
   if (isGameOver) {
     //블럭 내려오는걸 멈춤
+    modal_content.textContent = 'GAME OVER';
+        modal.classList.remove('hidden');
+        modal.classList.toggle('show');
     clearInterval(int);
     //게임 끝이라 색을 입힐 필요는없지만 테트리스 보면 그림그려지고 게임종료됨
     draw();
     //이부분은 시작창처럼 띄우는거로 바꿔야함
-    modal.classList.remove('hidden');
-    //tetris.remove();
-    //document.querySelectorAll('tr').remove();
-    overorstart = 1;
+    
     document.getElementById('score').textContent = String('0');//점수  설정
   } else {
     //이부분 어차피 실행할거 그냥 맨아래 에 빼던가 조건 다시입혀서 게임자체를 아예 끝내야함 다른오류 생김 ; 수정필요
@@ -320,10 +326,29 @@ function checkRows() { // 한 줄 다 찼는지 검사
         count++;// 칸이 차잇으면 카운트
       }
     });
+
     if (count === 10) {//만약 10개 즉 모든 칸이 다차잇으면
       fullRows.push(i);//해당 인덱스 를 저장
     }
   });
+
+  for(let i = 0; i < fullRows.length; i++){
+    console.log('fullRow[i]',fullRows[i]);
+    const tr = tetris.querySelector(`tr:nth-child(${fullRows[i]})`);
+
+    setTimeout(()=> {
+      const clone = tr.cloneNode(true);
+      console.log('clone',clone);
+      tetris.appendChild(clone);
+      clone.style = 'position:absolute';
+      clone.classList.add('active');
+      clone.addEventListener('animationend',function(){
+      clone.remove();
+      });
+    },i*100);
+  }
+
+
   const fullRowsCount = fullRows.length;//총 몇개의 줄이 찾는지 
   tetrisData = tetrisData.filter((row, i) => !fullRows.includes(i));//fullRows 배열에 잇는 줄들 을 삭제
   for (let i = 0; i < fullRowsCount; i++) {
@@ -331,11 +356,35 @@ function checkRows() { // 한 줄 다 찼는지 검사
   }
   // console.log(fullRows, JSON.parse(JSON.stringify(tetrisData)));
   let score = parseInt(document.getElementById('score').textContent, 10);// 점수 측정
-  score += fullRowsCount ** 2;
+  score += (fullRowsCount *100 )+((fullRowsCount-1)*(fullRowsCount)*10);
+  let levelcheck=1;
+  if(score >=500&& score <= 1000){
+    levelcheck=2;
+  }
+  else if(score >=1000&& score <= 2000){
+    levelcheck=3;
+  } 
+  else if(score >=2000&& score <= 4000){
+    levelcheck=4;
+  }
+  else if(score >=4000&& score <= 5000){
+    levelcheck=5;
+  } 
+  else if(score >=6000){
+    levelcheck=6;
+  }
+  if( levelcheck != parseInt(document.getElementById('level').textContent,10)){
+    document.getElementById('level').textContent = String(levelcheck);
+  }
+  gamespeed = (2000 -score *(3/10)) <50 ? 50 : (2000 -score *(3/10));
   document.getElementById('score').textContent = String(score);//점수  설정
 }
 
+
+
 function tick() { // 한 칸 아래로
+  if(isGameOver) return;
+
   //내려갈부분의 가장꼭대기 부분
   const nextTopLeft = [currentTopLeft[0] + 1, currentTopLeft[1]];
   const activeBlocks = [];
@@ -379,45 +428,31 @@ function tick() { // 한 칸 아래로
 
 let int = setInterval(tick, 2000); //2초마다 움직이는 블럭 1칸씩내림
 
-
 modal.addEventListener('click',function(){
   modal.classList.add('hidden');
-  /*if(overorstart === 1){
-    let tetris = document.createElement('table');
-    tetris.id = 'tetris';
-    temp.appendChild(tetris);
-    overorstart = 0;
-  }*/
-  init();
-  generate();
-  document.getElementById('stop').addEventListener('click', function() {
-    clearInterval(int);
-  });
-  
-  document.getElementById('restart').addEventListener('click', function() {
-    if (int) {
-      clearInterval(int);
-    }
-    int = setInterval(tick, 2000);
-  });
-
-
+  if(!isGameOver){
+    gamestart = true ; 
+    init();
+    generate();
+  }
 });
 
 document.getElementById('stop').addEventListener('click', function() {
   clearInterval(int);
+  stopflag = true;
 });
 
 document.getElementById('restart').addEventListener('click', function() {
+  stopflag = false;
   if (int) {
     clearInterval(int);
   }
   int = setInterval(tick, 2000);
 });
 
-
 //전체 비교가아니라 한줄만 비교로 수정 필요
 window.addEventListener('keydown', (e) => {
+  if(!stopflag && !isGameOver&&gamestart){
   switch (e.code) {
     case 'ArrowLeft': { // 키보드 왼쪽 클릭 = 좌측 한 칸 이동
       const nextTopLeft = [currentTopLeft[0], currentTopLeft[1] - 1];
@@ -484,9 +519,11 @@ window.addEventListener('keydown', (e) => {
       tick();
     }
   }
+}
 });
 
 window.addEventListener('keyup', (e) => {
+  if(!stopflag && !isGameOver&&gamestart){
   switch (e.code) {
     case 'ArrowUp': { // 방향 전환
       let currentBlockShape = currentBlock.shape[currentBlock.currentShapeIndex];
@@ -533,4 +570,5 @@ window.addEventListener('keyup', (e) => {
       while (tick()) {}
       break;
   }
+}
 });
