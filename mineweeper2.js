@@ -182,6 +182,7 @@ function findCheck(){
 }
 
 const modal = document.querySelector('.modal');
+const modal_content = document.querySelector('.modal_content');
 
 modal.addEventListener('click',function(){
     modal.classList.add('hidden');
@@ -192,7 +193,10 @@ modal.addEventListener('click',function(){
 function click(li,i,j){
     if(li.classList.contains("check")) return;
     else if(li.classList=="BB"){
-        alert("GG")
+        //console.log(modal.textContent);
+        modal_content.textContent = 'GAME OVER';
+        modal.classList.remove('hidden');
+        modal.classList.toggle('show');
     }
     else{
         let values = li.getAttribute('value')
