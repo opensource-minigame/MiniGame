@@ -251,10 +251,6 @@ function checkNeighbor(i,j){
 //////////////////
 function WIN(){
     window.open('inputtext.html','inputtext','width = 500px, height = 500px, left = 100, top = 50')
-    var p = document.querySelector('.scoreDiv');
-    var pp = document.createElement('p');
-    p.appendChild(pp);
-
 }
 
 //////////////////////////////////////////////////////클릭시스템.
