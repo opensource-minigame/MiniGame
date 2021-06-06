@@ -281,6 +281,7 @@ function generate() { // 테트리스 블록 생성
     col.forEach((row, j) => {
       if (row && tetrisData[i][j + 3]) { //row 가 1 즉 블럭이 처음 시작하는곳에 다른블럭이 그려져있으면 게임 오버
         isGameOver = true;
+
       }
     });
   });
@@ -308,7 +309,7 @@ function generate() { // 테트리스 블록 생성
     //게임 끝이라 색을 입힐 필요는없지만 테트리스 보면 그림그려지고 게임종료됨
     draw();
     //이부분은 시작창처럼 띄우는거로 바꿔야함
-    
+    WIN();
     document.getElementById('score').textContent = String('0');//점수  설정
   } else {
     //이부분 어차피 실행할거 그냥 맨아래 에 빼던가 조건 다시입혀서 게임자체를 아예 끝내야함 다른오류 생김 ; 수정필요
@@ -572,3 +573,7 @@ window.addEventListener('keyup', (e) => {
   }
 }
 });
+
+function WIN(){
+  window.open('inputtext.html','inputtext','width = 500px, height 300px, left = 100, top = 50')
+}
