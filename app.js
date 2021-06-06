@@ -65,7 +65,7 @@ app.post('/input_post', (req,res)=>{
     })*/
     
 
-    var query = conn.query('insert into Minigame (PersonID, PersonName, Majority,Score,Game) values ("'+PersonID+'","'+PersonName+'","'+Majority+'","'+Score+'","'+Game+'")', 
+    var query = conn.query('insert into MiniGame (PersonID, PersonName, Majority,Score,Game) values ("'+PersonID+'","'+PersonName+'","'+Majority+'","'+Score+'","'+Game+'")', 
     function(err){
         if(err){throw err;}
         else{
@@ -73,17 +73,18 @@ app.post('/input_post', (req,res)=>{
         }
     });
     
-    conn.query('SELECT * FROM MiniGame where Game like'+ Game +" Order by Score ASC", function(err, rows, fields){
+    conn.query('SELECT * FROM MiniGame where Game like \''+ Game +"\' Order by Score DESC", function(err, rows, fields){
         let a =''
         if(err) console.log(err,rows);
         else{
-            a = a + '<table>'
+            a = a + '<table><tr><td>순위  </td><td>학번</td><td>이름  </td><td>학과  </td><td>점수  </td><td>게임명  </td></tr>'
+            
             for(let i=0; i<rows.length; i++){
-                a += '<tr><td>'+i+'</td><td>'+rows[i].PersonID+"</td><td>"+rows[i].PersonName+"</td><td>"+rows[i].Majority+"</td><td>"+rows[i].Score+"</td><td>"+rows[i].Game+'</td></tr>'
+                a += '<tr><td>'+(i+1)+'</td><td>'+rows[i].PersonID+"</td><td>"+rows[i].PersonName+"</td><td>"+rows[i].Majority+"</td><td>"+rows[i].Score+"</td><td>"+rows[i].Game+'</td></tr>'
             }
             a += '</table>'
             res.send(a)
         }
     })
-    conn.end();
+    // conn.end();
 }); 
