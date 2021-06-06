@@ -44,36 +44,43 @@ let Id = 0;
 let bcnt = 0;
 const playbox = document.querySelector('.playbox');
 
-
-for(let i = 0; i < 8 ; i++){ 
-    let ul = document.createElement('ul');
-    rect[i] = ul;
-    for(let j = 0; j < 10; j++){
-        let value = 0;
-        var li = document.createElement('li');
-        li.setAttribute('id',Id++);
-        li.setAttribute('value',value);
-        li.setAttribute('isflag',isFlag)
-        let img = document.createElement('img');
-        li.appendChild(img);
-        li.classList.add(setBombArray[bcnt++])
-        rect[i][j] = li;
-        ul.appendChild(rect[i][j])
+function MakeTable(){
+    for(let i = 0; i < 8 ; i++){ 
+        let ul = document.createElement('ul');
+        rect[i] = ul;
+        for(let j = 0; j < 10; j++){
+            let value = 0;
+            var li = document.createElement('li');
+            li.setAttribute('id',Id++);
+            li.setAttribute('value',value);
+            li.setAttribute('isflag',isFlag)
+            let img = document.createElement('img');
+            li.appendChild(img);
+            li.classList.add(setBombArray[bcnt++])
+            rect[i][j] = li;
+            ul.appendChild(rect[i][j])
+        }
+        playbox.appendChild(ul);
     }
-    playbox.appendChild(ul);
 }
 
-for(let i = 0; i < 8 ; i++){ 
-    for(let j = 0; j < 10; j++){
-        if(rect[i][j].className==="BB"){
-            /*let selectimg = rect[i][j].querySelector('img');    
-            selectimg.src = bomb;
-            selectimg.style.visibility = 'visible';*/
-            rect[i][j].style.backgroundColor='red';
-            getCountNearby(i, j); 
+function PushBomb(){
+    for(let i = 0; i < 8 ; i++){ 
+        for(let j = 0; j < 10; j++){
+            if(rect[i][j].className==="BB"){
+                /*let selectimg = rect[i][j].querySelector('img');    
+                selectimg.src = bomb;
+                selectimg.style.visibility = 'visible';*/
+                rect[i][j].style.backgroundColor='red';
+                getCountNearby(i, j); 
+            }
         }
     }
 }
+
+MakeTable();
+PushBomb();
+
 
 function getCountNearby(i, j){
     for(var a = i-1; a <=i+1; a++){
@@ -145,6 +152,13 @@ function FlagInOut(target){
     }
 }
 
+function findCheck(){
+    let chk = document.getElementsByClassName('check').length
+    if(chk === 70) {
+        WIN();
+        isOver = true;
+    }
+}
 
 playbox.addEventListener('click',(event)=>{
     let target = event.target;
@@ -174,15 +188,9 @@ playbox.addEventListener('click',(event)=>{
         }
     }
     findCheck();
-})
+});
 
-function findCheck(){
-    let chk = document.getElementsByClassName('check').length
-    if(chk === 70) {
-        WIN();
-        isOver = true;
-    }
-}
+
 
 const modal = document.querySelector('.modal');
 const modal_content = document.querySelector('.modal_content');
