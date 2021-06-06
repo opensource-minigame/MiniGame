@@ -1,0 +1,273 @@
+body {
+    background-color: rgba(133, 141, 234, 0.54);
+    overflow: hidden;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.game_name {
+    color: black;
+    font-family: 'Pattaya', sans-serif;
+    position: absolute;
+    top: 48px;
+    left: 180px;
+    font-size: 40px;
+}
+
+.box {
+    width: 800px;
+    height: 720px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 10px solid rgba(5, 4, 22, 0.64);
+    background-color: white;
+    border-radius: 10px;
+}
+
+.non_playbox {
+    width: 23%;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+.discription_name {
+    width: 100%;
+    height: 38%;
+    background-color: rgba(5, 4, 22, 0.64);
+    color: white;
+    text-align: center;
+    font-size: 30px;
+    
+}
+
+.level_box {
+    width: 70%;
+    height: 23%;
+    display: flex;
+    flex-direction: column;
+    border: 5px solid rgba(5, 4, 22, 0.64);
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+#level {
+    width: 100%;
+    height: 62%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.score_box {
+    width: 70%;
+    height: 23%;
+    display: flex;
+    flex-direction: column;
+    border: 5px solid rgba(5, 4, 22, 0.64);
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+#score {
+    width: 100%;
+    height: 62%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.help_box {
+    width: 70%;
+    height: 23%;
+    display: flex;
+    flex-direction: column;
+    border: 5px solid rgba(5, 4, 22, 0.64);
+    font-size: 30px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.moving {
+    width: 100%;
+    height: 62%;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.moving > div {
+    margin-bottom: 10px;
+}
+
+.stop_keep {
+    width: 76%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#stop {
+    border: 5px solid rgba(5, 4, 22, 0.64);
+    width: 100px;
+    text-align: center;
+    margin-right: 18px;
+    background-color: white;
+    font-weight: bold;
+}
+
+#restart {
+    border: 5px solid rgba(5, 4, 22, 0.64);
+    width: 100px;
+    text-align: center;
+    background-color: white;
+    font-weight: bold;
+}
+
+#playbox {
+    border: 5px solid rgba(5, 4, 22, 0.64);
+}
+
+#playbox > tr {
+    display: flex;
+    list-style: none;
+    margin: 0;
+}
+
+#playbox > tr.active {
+    animation: smoke 1s linear forwards;
+}
+
+@keyframes smoke {
+    0% {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateX(0) translateY(0) rotate(0deg) scale(1);
+    }
+    100% {
+        opacity: 0;
+        filter: blur(20px);
+        transform: translateX(300px) translateY(-300px) rotate(720deg) scale(3);
+    }
+}
+
+
+#playbox > tr >td  {
+    width: 30px;
+    height: 30px;
+    outline: solid 2px rgba(5, 4, 22, 0.64);
+}
+
+.next_item {
+    width: 70%;
+    height: 23%;
+    /* margin-top: 10px;
+    margin-bottom: 10px; */
+    border: 5px solid rgba(5, 4, 22, 0.64);
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    position: relative;
+}
+
+#next_table{
+    width: 100%;
+    height: 50%;
+    position: absolute;
+}
+
+#next_table > tr > td{
+    border: 1px solid black;
+    width: 15px;
+    height: 15px;
+}
+
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.modal_content {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 50px 50px;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 500px;
+    height: 100px;
+    border-radius: 10px;
+    
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    font-size: 80px;
+
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.modal.show {  /*클릭 안되게*/
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+.start {
+    font-size: 80px;
+    font-weight: bold;
+    border: none;
+    background-color: white;
+}
+
+td.white{
+    background-color: white;
+}
+td.red{
+    background-color: red;
+}
+td.blue{
+    background-color: blue;
+}
+td.orange{
+    background-color: orange;
+}
+td.yellow{
+    background-color: yellow;
+}
+td.pink{
+    background-color: pink;
+}
+td.black{
+    background-color: black;
+}
+td.green{
+    background-color: green;
+}

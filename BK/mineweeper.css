@@ -1,0 +1,154 @@
+body{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(133, 141, 234, 0.54);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.sField{
+display:block;
+clear:none;
+}
+
+.game_name {
+    color: black;
+    font-family: 'Pattaya', sans-serif;
+    position: absolute;
+    top: 48px;
+    left: 140px;
+    font-size: 40px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 800px;
+    height: 720px;
+    background-color: white;
+    border: 10px solid rgba(5, 4, 22, 0.64);
+    border-radius: 10px;
+}
+
+.score_time {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 100%;
+    border-bottom: 5px solid rgba(5, 4, 22, 0.64);
+    font-weight: bold;
+    font-size: 23px;
+}
+
+.time {
+    padding-left: 5px;
+    padding-right: 70px;
+    
+}
+
+.box {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    outline : 5px solid rgba(5, 4, 22, 0.64);
+}
+
+.playbox > ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    border: 1px solid black;
+}
+
+.playbox img.active {
+    animation: smoke 1s linear forwards;
+}
+
+@keyframes smoke {
+    0% {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateX(0) translateY(0) rotate(0deg) scale(1);
+    }
+
+    30% {
+        opacity: 0.5;
+        filter: blur(12px);
+        transform: translateX(30px) translateY(-30px) rotate(360deg) scale(2);
+    }
+
+    100% {
+        opacity: 0;
+        filter: blur(20px);
+        transform: translateX(50px) translateY(-50px) rotate(720deg) scale(3);
+    }
+}
+
+.playbox > ul > li {
+    width: 30px;
+    height: 30px;
+    outline: solid 1px rgb(51, 51, 51);
+}
+
+.start {
+    font-size: 80px;
+    background-color: white;
+    border: none;
+}
+
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal_content {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 50px 50px;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 500px;
+    height: 100px;
+    border-radius: 10px;
+    
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    font-size: 80px;
+
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.modal.show {  /*클릭 안되게*/
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+.check{
+    background-color:rgba(40, 37, 95, 0.24);
+    text-align:center;
+    font-size: 1.8em;
+    font-family:Arial, Helvetica, sans-serif;
+    box-shadow:2px 2px 2px black;
+}
+
+img {
+    width: 30px;
+    height: 30px;
+    visibility: hidden;
+}
+

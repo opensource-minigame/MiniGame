@@ -1,0 +1,95 @@
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(133, 141, 234, 0.54);    
+}
+
+.team_name {
+    position: absolute;
+    font-size: 26px;
+    top: 30px;
+    left: 30px;
+    font-family:'Pattaya', sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 1100px;
+    height: 630px;
+    border: 20px solid rgba(5, 4, 22, 0.64);
+    border-radius: 10px;
+    margin: 10px;
+    color: rgba(133, 141, 234, 0.64);
+    background-color: white;
+}
+
+.name {
+    font-size: 30px;
+    font-family:'Pattaya', sans-serif;
+}
+
+.game_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.game {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 50%;
+}
+
+.imgs {
+    width: 300px;
+    height: 300px;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+.main_name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 10px;
+    color: #BC90FA;
+    font-family: 'Pattaya', sans-serif;
+    border-radius: 10px;
+}
+
+.level {
+    display: flex;
+    flex-direction: row;
+}
+
+.start {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: white;
+    text-decoration-color: black;
+    border: 1px solid rgba(5, 4, 22, 0.64);
+    margin: 30px;
+    padding: 2px 10px;
+    box-shadow:  2px 5px 10px rgb(116, 116, 116);
+}
+
+.start:hover{
+    background-color:rgba(114, 114, 114, 0.111)
+}
+.start a{
+    text-decoration:none;
+}

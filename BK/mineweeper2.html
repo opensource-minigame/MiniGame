@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mineweeper</title>
+    <link href="reset.css" rel="stylesheet" type="text/css">
+    <link href="mineweeper.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Pattaya&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $(".modal").click(function(){
+            $(".box").fadeIn("slow");
+            $(".box").css("display","flex");
+        })
+    });
+    </script>
+</head>
+<body>
+    <span class="game_name">Mineweeper</span>
+    <div class="modal">
+        <div class="modal_content"><button class="start">START</button></div>
+    </div>
+    <div class="container">
+        <div class="box">
+            <div class="score_time">
+                time: <div class="time"></div>
+                score: <div class="score"></div>
+            </div>
+            <div class="playbox">
+
+            </div>
+        </div>
+    </div>
+    <script src="mineweeper2.js"></script>
+</body>
+</html>
