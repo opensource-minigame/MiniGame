@@ -1,8 +1,12 @@
+
+
+
 let time = document.querySelector('.time');
 let score = document.querySelector('.score');
-
-let cnt = 0;
 let cntCheck = false;
+let cnt= 0;
+
+
 let stopwatch = setInterval(() => { //시간초 세주기
     cnt++;
     if(isOver){
@@ -116,7 +120,7 @@ playbox.addEventListener('contextmenu',function(event){
             let simg = target.parentNode.querySelector('img');
             console.log('simg',simg);
 
-            setTimeout(()=> {  //애니메이션 효과 적용
+            setTimeout(()=> {
                 const clone = simg.cloneNode(true);
                 console.log('clone',clone);
                 target.parentNode.appendChild(clone);
@@ -131,8 +135,6 @@ playbox.addEventListener('contextmenu',function(event){
 
             simg.src=''
             simg.style.visibility = 'hidden'
-            //let img = document.createElement('img');
-            //target.parentNode.appendChild(img);
             
             if(target.parentNode.classList.contains('BB')){
                 vic -= 1
@@ -151,16 +153,10 @@ function FlagInOut(target){
     }
 }
 
-function findCheck(){
-    let chk = document.getElementsByClassName('check').length
-    if(chk === 70) {
-        WIN();
-        isOver = true;
-    }
-}
 
 playbox.addEventListener('click',(event)=>{
     let target = event.target;
+    if(target.tagName.toLowerCase()==='ul'){return;}
     console.log(target.id)
     if(target.parentNode.getAttribute('isflag')==='true'){
         target.removeEventListener('click',(event)=>{})
@@ -187,9 +183,15 @@ playbox.addEventListener('click',(event)=>{
         }
     }
     findCheck();
-});
+})
 
-
+function findCheck(){
+    let chk = document.getElementsByClassName('check').length
+    if(chk === 70) {
+        WIN();
+        isOver = true;
+    }
+}
 
 const modal = document.querySelector('.modal');
 const modal_content = document.querySelector('.modal_content');
@@ -248,7 +250,10 @@ function checkNeighbor(i,j){
 
 //////////////////
 function WIN(){
-    window.open('inputtext.html','inputtext','width = 500px, height 300px, left = 100, top = 50')
+    window.open('inputtext.html','inputtext','width = 500px, height = 500px, left = 100, top = 50')
+ 
+
 }
 
 //////////////////////////////////////////////////////클릭시스템.
+//export{cnt}

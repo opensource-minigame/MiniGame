@@ -8,6 +8,15 @@
     <link href="reset.css" rel="stylesheet" type="text/css">
     <link href="mineweeper.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Pattaya&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $(".modal").click(function(){
+            $(".box").fadeIn("slow");
+            $(".box").css("display","flex");
+        })
+    });
+    </script>
 </head>
 <body>
     <span class="game_name">Mineweeper</span>

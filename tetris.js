@@ -559,5 +559,5 @@ window.addEventListener('keyup', (e) => {
 });
 
 function WIN(){
-  window.open('inputtext.html','inputtext','width = 500px, height 300px, left = 100, top = 50')
+  window.open('inputtext.html','inputtext','width = 500px, height = 500px, left = 100, top = 50')
 }

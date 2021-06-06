@@ -1,3 +1,4 @@
+
 var express = require('express')
 var app = express()
 var mysql = require('mysql')
@@ -28,6 +29,8 @@ conn.connect(function(err){
     }
 });
 
+
+
 app.get('/',(req,res)=>{
     res.sendFile(__dirname + "/a1.html")
 });
@@ -39,24 +42,14 @@ app.get('/mineweeper1.html',function(req,res){
 app.get('/tetris', function(req,res){
     res.sendFile(__dirname + "/tetris.html")
 });
-/*
-app.get('/inputtext.html',function(req,res){
-    conn.query('SELECT * FROM Persons', function(err, rows, fields){
-        if(err) console.log(err,rows);
-        else{
-            for(let i=0; i<rows.length; i++){
-                console.log(i+" PersonsID: " + rows[i].PersonID+", "+"Name : "+ rows[i].PersonName+", 학과 : "+rows[i].Majority);
-            }
-        }
-    })
-})*/
-///////////////////////////////////////////////////////////////
 
 app.post('/input_post', (req,res)=>{
     
     let PersonName = req.body.PersonName;
     let PersonID = req.body.PersonID;
     let Majority = req.body.Majority;
+    let Score = req.body.Score;
+    let Game = req.body.Game;
 /*
     $(function(){
         conn.query('SELECT * FROM Persons', function(err, rows, fields){
@@ -70,42 +63,27 @@ app.post('/input_post', (req,res)=>{
             }
         })
     })*/
-    /*
-    conn.query(query, function(err){
-        if(err){console.log('FILE READ FAILED!')}
+    
+
+    var query = conn.query('insert into Minigame (PersonID, PersonName, Majority,Score,Game) values ("'+PersonID+'","'+PersonName+'","'+Majority+'","'+Score+'","'+Game+'")', 
+    function(err){
+        if(err){throw err;}
         else{
-            var query = conn.query('insert into Persons (PersonID, PersonName, Majority) values ("'+PersonID+'","'+PersonName+'","'+Majority+'")', 
-            function(err){
-                if(err){throw err;}
-                else{
-                    console.log("Insert Complete!")
-                }
-            });
-            console.log(query)
+            console.log("Insert Complete!")
         }
-    });*/
-    //res.sendFile(__dirname+"/sField.html");
-    //res.sendFile(__dirname+"/inputtext.html")
-    conn.query('SELECT * FROM Persons ORDER BY PersonID DESC', function(err, rows, fields){
+    });
+    
+    conn.query('SELECT * FROM MiniGame where Game like'+ Game +" Order by Score ASC", function(err, rows, fields){
         let a =''
         if(err) console.log(err,rows);
         else{
             a = a + '<table>'
             for(let i=0; i<rows.length; i++){
-                //a += i+" PersonsID: " + rows[i].PersonID+", "+"Name : "+ rows[i].PersonName+", 학과 : "+rows[i].Majority+'<br>';
-                a += '<tr><td>'+i+'</td><td>'+rows[i].PersonID+"</td><td>"+rows[i].PersonName+"</td><td>"+rows[i].Majority+"</td></tr>"
+                a += '<tr><td>'+i+'</td><td>'+rows[i].PersonID+"</td><td>"+rows[i].PersonName+"</td><td>"+rows[i].Majority+"</td><td>"+rows[i].Score+"</td><td>"+rows[i].Game+'</td></tr>'
             }
             a += '</table>'
             res.send(a)
         }
     })
-
-
     conn.end();
 }); 
-/*
-app.get('/input_post',function(){
-    $(document).ready(function(){
-        $(".tables")
-    })
-})*/

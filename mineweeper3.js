@@ -44,6 +44,7 @@ let Id = 0;
 let bcnt = 0;
 const playbox = document.querySelector('.playbox');
 
+
 function MakeTable(){
     for(let i = 0; i < 20 ; i++){ 
         let ul = document.createElement('ul');
@@ -83,6 +84,7 @@ function PushBomb(){
 MakeTable();
 PushBomb();
 
+
 function getCountNearby(i, j){
     for(var a = i-1; a <=i+1; a++){
         for(var b = j-1; b <=j+1; b++){
@@ -115,7 +117,7 @@ playbox.addEventListener('contextmenu',function(event){
             target.parentNode.setAttribute('isflag',false)
             let simg = target.parentNode.querySelector('img')
             
-            setTimeout(()=> {  //애니메이션 효과 적용
+            setTimeout(()=> {
                 const clone = simg.cloneNode(true);
                 console.log('clone',clone);
                 target.parentNode.appendChild(clone);
@@ -129,9 +131,7 @@ playbox.addEventListener('contextmenu',function(event){
               },100);
             
             simg.src=''
-            simg.style.visibility = 'hidden'
-            //let img = document.createElement('img');
-            //target.parentNode.appendChild(img);
+            simg.style.visibility = 'hidden';
             if(target.parentNode.classList.contains('BB')){
                 vic -= 1
             }
@@ -152,6 +152,7 @@ function FlagInOut(target){
 }
 playbox.addEventListener('click',(event)=>{
     let target = event.target;
+    if(target.tagName.toLowerCase()==='ul'){return;}
     if(target.parentNode.getAttribute('isflag')==='true'){
         target.removeEventListener('click',(event)=>{})
     }
@@ -166,9 +167,6 @@ playbox.addEventListener('click',(event)=>{
             for(let i = 0; i < 20 ; i++){ 
                 for(let j = 0; j < 24; j++){
                     if(rect[i][j].classList.contains('BB')){
-                        /*rect[row][col].style.backgroundColor='white';
-                        let selectimg = rect[i][j].querySelector('img');    
-                        selectimg.src = bomb;*/
                         selectimg.style.visibility = 'visible';
                     }
                 }
