@@ -12,7 +12,6 @@ var gamespeed=2000;
 let isGameOver = false; //게임 끝 여부 
 let gamestart = false;
 
-  
 var blocks = [
   {
     name: 's', // 네모
@@ -208,6 +207,7 @@ var blocks = [
     ]
   },
 ];
+
 
 const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'pink', 'black'];
 
