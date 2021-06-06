@@ -5,14 +5,12 @@ var nextBlock;
 var currentTopLeft=[0,3]; //블록 나오는위치
 const modal = document.querySelector('.modal');
 const modal_content = document.querySelector('.modal_content');
-let overorstart = 0; //0이면 게임 오버 ,1이면 게임중
 const box = document.querySelector('.box');
 var stopflag =false;
 var gamespeed=2000;
 let isGameOver = false; //게임 끝 여부 
 let gamestart = false;
 
-  
 var blocks = [
   {
     name: 's', // 네모
@@ -209,6 +207,7 @@ var blocks = [
   },
 ];
 
+
 const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'pink', 'black'];
 
 const isActiveBlock = value => (value > 0 && value < 10);
@@ -230,7 +229,6 @@ function init() {
 }
 //주석 완료
 function draw() { //색을 입혀주는 함수
-  // console.log('drawed', JSON.parse(JSON.stringify(tetrisData)), JSON.parse(JSON.stringify(currentBlock)));
   tetrisData.forEach((col, i) => {
     col.forEach((row, j) => {
       if (row > 0) {
@@ -259,7 +257,6 @@ function drawNext() { // 다음 블록 그리는 함수
   })
 }
 
-//수정필요
 function generate() { // 테트리스 블록 생성
   if (!currentBlock) {
     //현재 블럭이 없으면 블럭 뽑기
@@ -270,10 +267,8 @@ function generate() { // 테트리스 블록 생성
   }
   currentBlock.currentShapeIndex = 0;
   nextBlock = blocks[Math.floor(Math.random() * blocks.length)]; // 다음 블록 미리 생성
-  //console.log(currentBlock);
   drawNext();// 다음블록을 화면에 표시하는함수 실행
   currentTopLeft = [-1, 3]; //처음 시작점 -1,3 인건 블럭 배열 보면 맨위가 비어잇는데 시작은 맨위에서 되야하므로 -1에 서부터 시작
-  //let isGameOver = false; //게임 끝 여부 
 
   //블럭 배열속 shap 는 블럭 모양을 나타내는 배열이고 
   //이때 0번째인덱스에는 초기 블럭 모양이 들어잇는데 이걸 1부터 끝까지 slice하는건 맨위 000이 저장된 부분을 제거한다는것이다
@@ -284,21 +279,14 @@ function generate() { // 테트리스 블록 생성
       }
     });
   });
-
-
-
   
   currentBlock.shape[0].slice(1).forEach((col, i) => { // 블록 데이터 생성
-   //console.log(currentBlock.shape[0], currentBlock.shape[0].slice(1), col);
     col.forEach((row, j) => {
       if (row) {
         tetrisData[i][j + 3] = currentBlock.numCode;
       }
     });
   });
-  
-  // console.log('generate', JSON.parse(JSON.stringify(currentBlock)));
-
   if (isGameOver) {
     //블럭 내려오는걸 멈춤
     modal_content.textContent = 'GAME OVER';
@@ -308,10 +296,8 @@ function generate() { // 테트리스 블록 생성
     //게임 끝이라 색을 입힐 필요는없지만 테트리스 보면 그림그려지고 게임종료됨
     draw();
     //이부분은 시작창처럼 띄우는거로 바꿔야함
-    
-    document.getElementById('score').textContent = String('0');//점수  설정
+    WIN(); //db 저장
   } else {
-    //이부분 어차피 실행할거 그냥 맨아래 에 빼던가 조건 다시입혀서 게임자체를 아예 끝내야함 다른오류 생김 ; 수정필요
     draw();
   }
 }
@@ -336,6 +322,8 @@ function checkRows() { // 한 줄 다 찼는지 검사
     console.log('fullRow[i]',fullRows[i]);
     const tr = tetris.querySelector(`tr:nth-child(${fullRows[i]})`);
 
+
+    //줄 터질때 애니매이션 함수
     setTimeout(()=> {
       const clone = tr.cloneNode(true);
       console.log('clone',clone);
@@ -354,7 +342,6 @@ function checkRows() { // 한 줄 다 찼는지 검사
   for (let i = 0; i < fullRowsCount; i++) {
     tetrisData.unshift([0,0,0,0,0,0,0,0,0,0]);// 언쉬프트로 맨앞에 삭제된만큼의 줄을 추가 
   }
-  // console.log(fullRows, JSON.parse(JSON.stringify(tetrisData)));
   let score = parseInt(document.getElementById('score').textContent, 10);// 점수 측정
   score += (fullRowsCount *100 )+((fullRowsCount-1)*(fullRowsCount)*10);
   let levelcheck=1;
@@ -393,11 +380,9 @@ function tick() { // 한 칸 아래로
   for (let i = currentTopLeft[0]; i < currentTopLeft[0] + currentBlockShape.length; i++) { // 아래 내려갈수잇는지 체크
     if (i < 0 || i >= 20) continue;
     for (let j = currentTopLeft[1]; j < currentTopLeft[1] + currentBlockShape.length; j++) {
-      //console.log(i, j);
       if (isActiveBlock(tetrisData[i][j])) { // 현재 움직이는 블럭이면
         activeBlocks.push([i, j]);
         if (isInvalidBlock(tetrisData[i + 1] && tetrisData[i + 1][j])) {// 아래 내려갈곳이 없거나 움직이는 블럭이아니면 canGoDown 을 false 로 
-          //console.log('아래 블럭이 있다!', i, j, tetrisData[i][j], tetrisData[i + 1] && tetrisData[i + 1][j], JSON.parse(JSON.stringify(tetrisData)));
           canGoDown = false;
         }
       }
@@ -414,7 +399,7 @@ function tick() { // 한 칸 아래로
     for (let i = tetrisData.length - 1; i >= 0; i--) {//아래서 부터 내려줘야함
       const col = tetrisData[i]; //한줄씩
       col.forEach((row, j) => {
-        if (row < 10 && tetrisData[i + 1] && tetrisData[i + 1][j] < 10) { //맨오른쪽 조건  수정요망
+        if (row < 10 && tetrisData[i + 1] && tetrisData[i + 1][j] < 10) { 
           tetrisData[i + 1][j] = row;
           tetrisData[i][j] = 0;
         }
@@ -447,7 +432,7 @@ document.getElementById('restart').addEventListener('click', function() {
   if (int) {
     clearInterval(int);
   }
-  int = setInterval(tick, 2000);
+  int = setInterval(tick, gamespeed);
 });
 
 //전체 비교가아니라 한줄만 비교로 수정 필요
@@ -572,3 +557,7 @@ window.addEventListener('keyup', (e) => {
   }
 }
 });
+
+function WIN(){
+  window.open('inputtext.html','inputtext','width = 500px, height = 500px, left = 100, top = 50')
+}
