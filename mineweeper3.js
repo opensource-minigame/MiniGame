@@ -70,10 +70,11 @@ function PushBomb(){
     for(let i = 0; i < 20 ; i++){ 
         for(let j = 0; j < 24; j++){
             if(rect[i][j].className==="BB"){
-                let selectimg = rect[i][j].querySelector('img');    
+                /*let selectimg = rect[i][j].querySelector('img');    
                 selectimg.src = bomb;
-                selectimg.style.visibility = 'visible';
-                getCountNearby(i, j); 
+                selectimg.style.visibility = 'visible';*/
+                //rect[i][j].style.backgroundColor='red';
+                getCountNearby(i, j);
             }
         }
     }
@@ -114,7 +115,7 @@ playbox.addEventListener('contextmenu',function(event){
             target.parentNode.setAttribute('isflag',false)
             let simg = target.parentNode.querySelector('img')
             
-            setTimeout(()=> {
+            setTimeout(()=> {  //애니메이션 효과 적용
                 const clone = simg.cloneNode(true);
                 console.log('clone',clone);
                 target.parentNode.appendChild(clone);

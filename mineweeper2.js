@@ -114,7 +114,7 @@ playbox.addEventListener('contextmenu',function(event){
             target.parentNode.setAttribute('isflag',false)
             let simg = target.parentNode.querySelector('img');
 
-            setTimeout(()=> {
+            setTimeout(()=> {  //애니메이션 효과 적용
                 const clone = simg.cloneNode(true);
                 console.log('clone',clone);
                 target.parentNode.appendChild(clone);

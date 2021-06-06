@@ -81,7 +81,6 @@ function PushBomb(){
 MakeTable();
 PushBomb();
 
-
 function getCountNearby(i, j){
     for(var a = i-1; a <=i+1; a++){
         if(a>=0 && a<=7){
@@ -117,7 +116,7 @@ playbox.addEventListener('contextmenu',function(event){
             let simg = target.parentNode.querySelector('img');
             console.log('simg',simg);
 
-            setTimeout(()=> {
+            setTimeout(()=> {  //애니메이션 효과 적용
                 const clone = simg.cloneNode(true);
                 console.log('clone',clone);
                 target.parentNode.appendChild(clone);
