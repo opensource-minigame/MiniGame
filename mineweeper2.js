@@ -151,6 +151,7 @@ function FlagInOut(target){
 }
 playbox.addEventListener('click',(event)=>{
     let target = event.target;
+    if(target.tagName.toLowerCase()==='ul'){return;}
     if(target.parentNode.getAttribute('isflag')==='true'){
         target.removeEventListener('click',(event)=>{})
     }
